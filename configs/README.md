@@ -1,3 +1,3 @@
 * starship - .config/
-** requries nerd font
+ * requries nerd font
 
