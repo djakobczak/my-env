@@ -1,17 +1,28 @@
+#!/bin/bash
+
+set -e
+
+log "Installing gogh"
+
 # clone the repo into "$HOME/src/gogh"
 mkdir -p "$HOME/src"
-cd "$HOME/src"
+pushd "$HOME/src" || exit 1
 git clone https://github.com/Gogh-Co/Gogh.git gogh
-cd gogh
+pushd gogh || exit 1
 
 # necessary in the Gnome terminal on ubuntu
 export TERMINAL=gnome-terminal
 
 # Enter theme installs dir
-cd installs
+cd installs || exit 1
 
 # install themes
 ./atom.sh
 ./dracula.sh
 ./seti.sh
 
+popd || exit 1
+popd || exit 1
+popd || exit 1
+
+log "Installed"
