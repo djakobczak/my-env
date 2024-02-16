@@ -2,6 +2,11 @@
 
 set -e
 
+if path_exists "${HOME}/src/gogh"; then
+  log_warn "Skipping installing gogh, because ${HOME}/src/gogh already exists"
+  exit 0
+fi
+
 log "Installing gogh"
 
 # clone the repo into "$HOME/src/gogh"

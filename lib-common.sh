@@ -4,11 +4,12 @@
 
 log() { printf "[$(date +%T)] %s\n" "$*"; }
 log_err() { log "[ERROR]" "$*"; }
+log_warn() { log "[WARN]" "$*"; }
 
 path_exists() {
     # return 0 (true) if path exists, otherwise 1 (false)
     # usage: if path_exists "/test"; then ...
-    if [[ -e "${path}" ]]; then
+    if [[ -e "${1}" ]]; then
         return 0
     else
         return 1

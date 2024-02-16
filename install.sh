@@ -6,7 +6,9 @@ set -ue
 export FORCE="yes"
 
 # source libs
+set -a
 . lib-common.sh
+set +a
 
 CONFIG_DIR="configs"
 APPS_DIR="apps"
@@ -43,7 +45,9 @@ copy_configs() {
 
 install_apps() {
     for install_script in "${APPS_DIR}"/*; do
-      bash "${install_script}" || (log_err "Failed to execute ${install_script}" && return 1)
+      log "*************** Executing ${install_script} ***************"
+      bash "${install_script}" || (log_err "Failed to execute ${install_script}" && exit 1)
+      log "*************** Finished ${install_script} ***************"
     done
 }
 
