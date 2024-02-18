@@ -57,7 +57,7 @@ install_apps() {
     done
 
     if [[ "${#failed_scripts}" != 0 ]]; then
-      err="Not all scripts installed correctly: ${failed_scripts[@]}" 
+      err="Not all scripts installed correctly: ${failed_scripts[@]}"
       log_err "${err}"
       return 1
     fi
@@ -68,8 +68,3 @@ if forced; then log "Using force"; fi
 
 if is_yes "${INSTALL_APPS}"; then install_apps; else log "Skipping installing apps"; fi
 if is_yes "${INSTALL_CONFIGS}"; then copy_configs; else log "Skipping copying configs"; fi
-
-cat << EOF
-Add to .bashrc
-export PATH="\${PATH}:\${HOME}/.local/bin"
-EOF
