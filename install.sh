@@ -16,6 +16,8 @@ APPS_DIR="apps"
 INSTALL_APPS="yes"
 INSTALL_CONFIGS="yes"
 
+FAILED="no"
+
 # map between repo config and system path where config should be copied
 declare -A CONFIGS
 CONFIGS=(
@@ -44,19 +46,21 @@ copy_configs() {
 }
 
 install_apps() {
-    declare -a failed_scripts
-    declare rc
+    local -a failed_scripts
+    local failed="no"
+
     for install_script in "${APPS_DIR}"/*; do
       log "*************** Executing ${install_script} ***************"
       bash "${install_script}"; rc=$?
       if [[ "${rc}" != 0 ]]; then
         log_err "Failed to execute ${install_script}"
+        failed="yes"
         failed_scripts+=("${install_script}")
       fi
       log "*************** Finished ${install_script} ***************"
     done
 
-    if [[ "${#failed_scripts}" != 0 ]]; then
+    if [[ "${failed}" == "yes" ]]; then
       err="Not all scripts installed correctly: ${failed_scripts[@]}"
       log_err "${err}"
       return 1
@@ -66,5 +70,11 @@ install_apps() {
 
 if forced; then log "Using force"; fi
 
-if is_yes "${INSTALL_APPS}"; then install_apps; else log "Skipping installing apps"; fi
-if is_yes "${INSTALL_CONFIGS}"; then copy_configs; else log "Skipping copying configs"; fi
+if is_yes "${INSTALL_APPS}"; then install_apps || FAILED="yes"; else log "Skipping installing apps"; fi
+if is_yes "${INSTALL_CONFIGS}"; then copy_configs || FAILED="yes"; else log "Skipping copying configs"; fi
+
+if [[ "${FAILED}" == "yes" ]]; then
+  exit 1
+else
+  exit 0
+fi

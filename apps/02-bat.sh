@@ -6,5 +6,5 @@ set -e
 log "Installing bat"
 sudo apt install bat -y
 mkdir -p "${HOME}/.local/bin"
-ln -s /usr/bin/batcat ~/.local/bin/bat 2> /dev/null
+ln -s /usr/bin/batcat ~/.local/bin/bat 2> /dev/null || true
 log "Installed"

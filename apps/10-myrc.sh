@@ -14,8 +14,8 @@ eval "\$(starship init bash)"
 
 export PATH="\${PATH}:\${HOME}/.local/bin"
 
-log() { printf "[$(date +%T)] %s\n" "$*"; }
-log_err() { log "[ERROR]" "$*"; }
+log() { printf "[$(date +%T)] %s\n" "\$*"; }
+log_err() { log "[ERROR]" "\$*"; }
 
 EOF
 

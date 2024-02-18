@@ -34,7 +34,6 @@ cd installs || exit 1
 
 popd || exit 1
 popd || exit 1
-popd || exit 1
 
 log "Installed"
 exit 0
