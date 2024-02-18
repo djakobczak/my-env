@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # https://github.com/sharkdp/bat
 log "Installing bat"
 sudo apt install bat -y

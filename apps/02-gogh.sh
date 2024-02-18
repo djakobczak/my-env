@@ -2,9 +2,11 @@
 
 set -e
 
-if path_exists "${HOME}/src/gogh"; then
-  log_warn "Skipping installing gogh, because ${HOME}/src/gogh already exists"
-  exit 0
+# BUG: cannot install with terminator ubuntu18
+
+if [[ -n "${TERMINATOR_UUID}" ]]; then
+  log_err "Cannot install gogh with terminator terminal"
+  exit 1
 fi
 
 log "Installing gogh"
@@ -12,7 +14,11 @@ log "Installing gogh"
 # clone the repo into "$HOME/src/gogh"
 mkdir -p "$HOME/src"
 pushd "$HOME/src" || exit 1
-git clone https://github.com/Gogh-Co/Gogh.git gogh
+
+if ! path_exists "${HOME}/src/gogh"; then
+  git clone https://github.com/Gogh-Co/Gogh.git gogh
+fi
+
 pushd gogh || exit 1
 
 # necessary in the Gnome terminal on ubuntu
@@ -31,3 +37,4 @@ popd || exit 1
 popd || exit 1
 
 log "Installed"
+exit 0

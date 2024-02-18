@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ue
+set -u
 
 # !TODO add to cmdl args
 export FORCE="yes"
@@ -44,11 +44,24 @@ copy_configs() {
 }
 
 install_apps() {
+    declare -a failed_scripts
+    declare rc
     for install_script in "${APPS_DIR}"/*; do
       log "*************** Executing ${install_script} ***************"
-      bash "${install_script}" || (log_err "Failed to execute ${install_script}" && exit 1)
+      bash "${install_script}"; rc=$?
+      if [[ "${rc}" != 0 ]]; then
+        log_err "Failed to execute ${install_script}"
+        failed_scripts+=("${install_script}")
+      fi
       log "*************** Finished ${install_script} ***************"
     done
+
+    if [[ "${#failed_scripts}" != 0 ]]; then
+      err="Not all scripts installed correctly: ${failed_scripts[@]}" 
+      log_err "${err}"
+      return 1
+    fi
+    return 0
 }
 
 if forced; then log "Using force"; fi

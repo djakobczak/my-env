@@ -26,5 +26,5 @@ for pkg in "${pkgs[@]}"; do
   sudo apt install "${pkg}" -y || FAILED="yes"
 done
 
-[[ -n "${FAILED}" ]] && log "Failed to install pkg: ${pkg}" && exit 1
+[[ -n "${FAILED}" ]] && log "Failed to install pkgs" && exit 1
 exit 0
