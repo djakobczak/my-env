@@ -8,8 +8,10 @@ pkgs=(
   curl
   fontconfig  # for nerd fonts
   git
+  gawk  # ble-sh
   htop
   jq
+  make
   nfs-common
   openssh-server
   openssl

@@ -8,6 +8,7 @@
   * seti
 * [starship](https://github.com/starship/starship)
 * [vimrc](https://github.com/amix/vimrc)
+* [ble.sh](https://github.com/akinomyoga/ble.sh)
 
 
 ## To consider
