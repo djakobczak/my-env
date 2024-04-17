@@ -5,6 +5,7 @@
 sudo apt update
 
 pkgs=(
+  ca-certificates
   curl
   fontconfig  # for nerd fonts
   git
@@ -21,6 +22,7 @@ pkgs=(
   vim
   wget
   xsel
+  xclip
 )
 
 FAILED=""
